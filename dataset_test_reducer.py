@@ -33,4 +33,4 @@ def reducir_jsonl_estratificado(archivo_entrada, archivo_salida, n_muestras, sem
     print(dist_reducida.sort_index())
 
 # ✅ Ejemplo de uso:
-reducir_jsonl_estratificado("test_semantico.jsonl", "mini_test_estratificado.jsonl", 2000)
+reducir_jsonl_estratificado("test_semantico_enriched_en_ver2.jsonl", "mini_test_semantico_enriched_en_ver2.jsonl", 2000)
