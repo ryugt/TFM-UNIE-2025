@@ -15,7 +15,12 @@ ataques_raros = [
 df['Label Agrupado'] = df['Label'].replace({ataque: 'ATAQUE_RARO' for ataque in ataques_raros})
 
 # --- 3. Separar el dataset por grupos ---
-df_benign = df[df['Label Agrupado'] == 'BENIGN'].sample(n=300000, random_state=42)
+try:
+    df_benign = df[df['Label Agrupado'] == 'BENIGN'].sample(n=300000, random_state=42)
+except ValueError:
+    print("[ADVERTENCIA] Menos de 300 filas BENIGN, usando todas las disponibles.")
+    df_benign = df[df['Label Agrupado'] == 'BENIGN']
+
 df_comunes = df[df['Label Agrupado'].isin([
     'DoS Hulk',
     'PortScan',
@@ -26,7 +31,14 @@ df_comunes = df[df['Label Agrupado'].isin([
     'DoS slowloris',
     'DoS Slowhttptest',
     'Bot',
-    'Web Attack ÃÂÃÂÃÂÃÂ Brute Force'
+    'Web Attack ÃÂÃÂÃÂÃÂ Brute Force',
+    'Fuzzers',
+    'Reconnaissance',
+    'Shellcode',
+    'Analysis',
+    'Backdoors',
+    'DoS',
+    'Exploits'
 ])]
 df_raros = df[df['Label Agrupado'] == 'ATAQUE_RARO']
 

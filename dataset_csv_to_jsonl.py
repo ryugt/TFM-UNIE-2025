@@ -45,7 +45,12 @@ def generar_texto(fila):
 df['text'] = df.apply(generar_texto, axis=1)
 
 # 5. Preparar el dataset final
-df_final = df[['text', 'target']]
+if 'target' in df.columns:
+    df_final = df[['text', 'target']]
+elif 'label' in df.columns:
+    df_final = df[['text', 'label']].rename(columns={'label': 'target'})
+else:
+    raise KeyError("No se encontró la columna 'target' ni 'label' en el DataFrame.")
 
 # 6. Exportar a JSONL
 with open("cicids2017_autotrain_full.jsonl", "w", encoding='utf-8') as f:
